@@ -1,0 +1,467 @@
+{
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\eslint.config.mjs": {
+    "mtime": 1779469483.7022305,
+    "ast_hash": "dfa1f5f6a7037bf39dc510f30b180002",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\next-env.d.ts": {
+    "mtime": 1779470433.831102,
+    "ast_hash": "d0f8375ae1199dc7acd3977fc33b78b8",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\package.json": {
+    "mtime": 1779545063.514017,
+    "ast_hash": "0685e1f21e5648457b8678361212830a",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\setup-graphify.ps1": {
+    "mtime": 1779521874.9537046,
+    "ast_hash": "47c45c22c17418c8c1f26b5904d6a8df",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\tsconfig.json": {
+    "mtime": 1779469484.1394255,
+    "ast_hash": "ee17fd1c97c735e9f3564e3f5251f125",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\vitest.setup.ts": {
+    "mtime": 1779515905.342567,
+    "ast_hash": "50a2c20fc4b7472fe707fd3f3f9d0a89",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\.claude\\settings.json": {
+    "mtime": 1779521923.6600716,
+    "ast_hash": "5d6ecd96cf065b16e8bb9fbf5d7d8f0d",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\.claude\\settings.local.json": {
+    "mtime": 1779522937.0041015,
+    "ast_hash": "c0e3e6c8d1e6a0e84274597649eb58a5",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\layout.tsx": {
+    "mtime": 1779514468.4394233,
+    "ast_hash": "45375ca0d456ab6acfe7801491c7ed11",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\layout_clean.tsx": {
+    "mtime": 1779514450.6871414,
+    "ast_hash": "45375ca0d456ab6acfe7801491c7ed11",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\page.tsx": {
+    "mtime": 1779529863.189855,
+    "ast_hash": "71aaaaf896d1544de74a9f819be8e89a",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\affiliate\\page.tsx": {
+    "mtime": 1779528782.8646977,
+    "ast_hash": "4faee162247a83c0cbd233c9af0d0bad",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\analytics\\page.tsx": {
+    "mtime": 1779521390.528303,
+    "ast_hash": "91dd8e753763a74b322135065cd14c4a",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\agent\\route.ts": {
+    "mtime": 1779481364.035718,
+    "ast_hash": "ff5b0927f0e3b319b49c4181f306ce08",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\analytics\\route.ts": {
+    "mtime": 1779528817.2125244,
+    "ast_hash": "34f8b4845c255bff110270d358f4bf57",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\chat\\route.ts": {
+    "mtime": 1779474060.2212543,
+    "ast_hash": "a15d5b283020c5efdc80ac22aadbc890",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\claude-code\\route.ts": {
+    "mtime": 1779555467.82812,
+    "ast_hash": "9ec4733d6e86d242755490d28314e18a",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\dispatch\\route.ts": {
+    "mtime": 1779473890.2478397,
+    "ast_hash": "cefb0bb7f33299e18b53b01015b10beb",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\git\\route.ts": {
+    "mtime": 1779472116.6607125,
+    "ast_hash": "57f3c61307ff9fb156f9c730deb83c73",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\logs\\route.ts": {
+    "mtime": 1779472050.9232056,
+    "ast_hash": "2dac3558c5cd9cae090e4d41ce0b8d2a",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\market\\gold\\route.ts": {
+    "mtime": 1779478098.265362,
+    "ast_hash": "68182005bec94891e67e9e7cffcbecba",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\quests\\route.ts": {
+    "mtime": 1779472045.0550985,
+    "ast_hash": "a55635968a95ef67bd1ace3fe7bb0bfa",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\task\\route.ts": {
+    "mtime": 1779474940.607551,
+    "ast_hash": "e48c35e69103b9cd5bcc3ce14ead79a0",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\guild-room\\page.tsx": {
+    "mtime": 1779555740.6860695,
+    "ast_hash": "dd73245d88cd798327566f05f8343097",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\map\\page.tsx": {
+    "mtime": 1779558508.5425308,
+    "ast_hash": "5d1eb62e36514c125db986cc696006b2",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\mission-log\\page.tsx": {
+    "mtime": 1779470364.9854777,
+    "ast_hash": "dd87ec8a941353ba6f64adffeff93df9",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\observatory\\page.tsx": {
+    "mtime": 1779470888.8287,
+    "ast_hash": "2a98ce5b1a3fd53de24d1e3d561b624a",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\quests\\page.tsx": {
+    "mtime": 1779472088.6669965,
+    "ast_hash": "40fab71379483cdb08af383276eaa168",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\roster\\page.tsx": {
+    "mtime": 1779545040.183783,
+    "ast_hash": "876f9805526d44564145bf5407a2c976",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\scheduler\\page.tsx": {
+    "mtime": 1779537093.3010423,
+    "ast_hash": "086274ca903bb158ed482690da4700d5",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\scroll-vault\\page.tsx": {
+    "mtime": 1779537093.3060646,
+    "ast_hash": "2ae499a88d8da18fccd14b5fa41688e7",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\settings\\page.tsx": {
+    "mtime": 1779470382.2122192,
+    "ast_hash": "cddfd02c58a66a14abbd11e5916ba787",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\AgentChat.tsx": {
+    "mtime": 1779555501.5224247,
+    "ast_hash": "a7adcd7c70849ed5d3fcc445ec86b957",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\Sidebar.tsx": {
+    "mtime": 1779522762.3780055,
+    "ast_hash": "146b46a816b96b6d7611e4998c33eb7f",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\ActivityPanels.test.tsx": {
+    "mtime": 1779515941.9936998,
+    "ast_hash": "f76d40e8d2f318380ebb7141d2c13335",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\ActivityPanels.tsx": {
+    "mtime": 1779516264.731808,
+    "ast_hash": "32ef32721a6051586dd7ed1afc101468",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\CommissionTable.test.tsx": {
+    "mtime": 1779515936.9395368,
+    "ast_hash": "1e16f7fda9c0aac6ca5554151757df0c",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\CommissionTable.tsx": {
+    "mtime": 1779516250.925094,
+    "ast_hash": "c8cd30c8ba2ff549cba17c879d7ab6b6",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\Counter.tsx": {
+    "mtime": 1779516227.6053538,
+    "ast_hash": "bdb5e4147215d0f8cdbdde61cc0052bb",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\FaqSection.tsx": {
+    "mtime": 1779515649.5984573,
+    "ast_hash": "b053a70b0a459b84ed786dcdb942719a",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\FooterCta.tsx": {
+    "mtime": 1779515655.7895696,
+    "ast_hash": "2e5a530c4c872445091fae00fd361a6d",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\HeroSection.test.tsx": {
+    "mtime": 1779515932.3362815,
+    "ast_hash": "9bf907a6228cbef8d35ca146ac2a51a7",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\HeroSection.tsx": {
+    "mtime": 1779516285.3004375,
+    "ast_hash": "9cae1afb1fa5ef0b670abf729d3281b5",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\index.ts": {
+    "mtime": 1779515657.9072385,
+    "ast_hash": "af39a5e7602860403374cff7533590a0",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\MarketingAssets.tsx": {
+    "mtime": 1779515640.2994266,
+    "ast_hash": "616bbccca82c867a95808ff649466c0a",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\SectionHeader.tsx": {
+    "mtime": 1779515539.2452784,
+    "ast_hash": "5a8b35b08d16319316f01d84db5439f0",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\StatsGrid.test.tsx": {
+    "mtime": 1779515944.944041,
+    "ast_hash": "4bb479b59da8c6dbec86d7dda0fd2d88",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\StatsGrid.tsx": {
+    "mtime": 1779516245.674165,
+    "ast_hash": "7e7857bf5a5d2105861668f36baeda25",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\TierBadge.tsx": {
+    "mtime": 1779515542.721279,
+    "ast_hash": "94dda24cf733a476b99b9805bc900cb2",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\TierProgress.test.tsx": {
+    "mtime": 1779516024.7339487,
+    "ast_hash": "62e80038e03f3ab2ffe062d399bb7190",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\affiliate\\TierProgress.tsx": {
+    "mtime": 1779515593.336243,
+    "ast_hash": "3002dc85365e2d0a2b6dcafd38fa3da1",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\analytics\\AnalyticsDashboard.tsx": {
+    "mtime": 1779547646.8168328,
+    "ast_hash": "75560805751578ab14c790402cba2eda",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\analytics\\BarChart.tsx": {
+    "mtime": 1779547595.6651685,
+    "ast_hash": "8c0c21e1b9abc8773109592ae03bf013",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\analytics\\DataTable.tsx": {
+    "mtime": 1779547616.48495,
+    "ast_hash": "753e4c68d648051a7db66096e95da25b",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\analytics\\KpiCard.tsx": {
+    "mtime": 1779547571.4910352,
+    "ast_hash": "93b88084b2dfcc20e00cccaa46b53d11",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\analytics\\LineChart.tsx": {
+    "mtime": 1779547588.0272589,
+    "ast_hash": "55fe4efa7754b7ff042ac9f40b34dd7e",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\analytics\\types.ts": {
+    "mtime": 1779521299.0757031,
+    "ast_hash": "4438c49523b3fd1205121b2170f6b697",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\data\\affiliate.test.ts": {
+    "mtime": 1779515927.2651308,
+    "ast_hash": "b9c8b2bbca29a4ce7ef2555fba830dea",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\data\\affiliate.ts": {
+    "mtime": 1779515510.7054753,
+    "ast_hash": "274a325b154ce136077cb06ce0c82a85",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\data\\agents.ts": {
+    "mtime": 1779480536.634032,
+    "ast_hash": "569ca0c48fff878f466ff90f9eb15cb0",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\data\\goldMarketAnalysis.ts": {
+    "mtime": 1779478092.10745,
+    "ast_hash": "ed526592d9a9df2ba10b30e7774b996f",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\hooks\\useClipboard.ts": {
+    "mtime": 1779515522.3369784,
+    "ast_hash": "44b5b709ea218864fb710bcb8775f1bb",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\hooks\\useCountUp.ts": {
+    "mtime": 1779516222.4919534,
+    "ast_hash": "92471a0fb20d02eabc92d01bc4129586",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\hooks\\useRevealOnMount.ts": {
+    "mtime": 1779515524.1768131,
+    "ast_hash": "97b445eb8a39b5bc1c23b4218cdc9597",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\lib\\agentPrompts.ts": {
+    "mtime": 1779536972.0865037,
+    "ast_hash": "f432629c74afbbf070e9251906a6a51b",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\scripts\\roster.mjs": {
+    "mtime": 1779523027.008977,
+    "ast_hash": "17c7dafa2d2495887331eebd15fedb79",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\analytics\\route.test.ts": {
+    "mtime": 1779524827.4411137,
+    "ast_hash": "7f505b2a9e347f86e0bfac2a5489b6dc",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\analytics\\aggregations\\route.ts": {
+    "mtime": 1779523418.913129,
+    "ast_hash": "09bca47b210bebb12317e04a0654beaa",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\analytics\\kpis\\route.ts": {
+    "mtime": 1779523399.6402564,
+    "ast_hash": "445f9053b4091b94f24ee52908a61666",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\analytics\\timeseries\\route.ts": {
+    "mtime": 1779523404.571803,
+    "ast_hash": "6d29e55ab62c00b1d42d845760d6eae0",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\research\\route.ts": {
+    "mtime": 1779526748.6728208,
+    "ast_hash": "5c666d7a29006534a2bce405bc1ba2b5",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\research\\entry\\route.ts": {
+    "mtime": 1779526306.4034097,
+    "ast_hash": "96ad89c3a5401a673ec6a192d1662c08",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\Panel.tsx": {
+    "mtime": 1779529132.7101302,
+    "ast_hash": "31dcfde36e5216e3f9c9eadb9024813e",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\StatCard.tsx": {
+    "mtime": 1779529885.972404,
+    "ast_hash": "223a2ef08548343debc80fedcb8f8a65",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\analytics\\AnalyticsDashboard.test.tsx": {
+    "mtime": 1779523659.075486,
+    "ast_hash": "a0dcce60f448d905083c50e3f7a96f85",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\analytics\\BarChart.test.tsx": {
+    "mtime": 1779523544.2188358,
+    "ast_hash": "d00da8cdf9ea741f18736d3f8ef6c290",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\analytics\\DataTable.test.tsx": {
+    "mtime": 1779523561.340458,
+    "ast_hash": "315a08e938adf6e971b91fdf6e3ba99e",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\analytics\\KpiCard.test.tsx": {
+    "mtime": 1779523538.0044682,
+    "ast_hash": "3cccaa2004ebf7b7804997383de91afb",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\components\\analytics\\LineChart.test.tsx": {
+    "mtime": 1779523550.7804563,
+    "ast_hash": "2143ab036200c3bf3a044bf29a945098",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\lib\\analytics.test.ts": {
+    "mtime": 1779523529.4314277,
+    "ast_hash": "846f0bfd4c3fbd24ec8b66e7de434c96",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\lib\\analytics.ts": {
+    "mtime": 1779523414.26606,
+    "ast_hash": "37fa7ab53a435b059e9ae89a4733007d",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\dm\\route.ts": {
+    "mtime": 1779555488.5812857,
+    "ast_hash": "ab26ed6093ffcf992a8d0981ae957587",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\history\\cc\\route.ts": {
+    "mtime": 1779544643.9029517,
+    "ast_hash": "2b3172123f00baebe96e02fe58232122",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\history\\dm\\route.ts": {
+    "mtime": 1779544636.1802614,
+    "ast_hash": "fc109dc57e95b9ed0b7965028b14a421",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\history\\task-log\\route.ts": {
+    "mtime": 1779544648.9559524,
+    "ast_hash": "51a2c385a3c9dafb1c56a551f0d9090a",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\lib\\db.ts": {
+    "mtime": 1779549064.770139,
+    "ast_hash": "ad58330efdcc3cb1fa57c1c2482ed548",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\types\\better-sqlite3.d.ts": {
+    "mtime": 1779544596.3008115,
+    "ast_hash": "dcace809ec169bd4846c5f4f4813fb41",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\workspace\\route.ts": {
+    "mtime": 1779548646.0896285,
+    "ast_hash": "80efef9c6c5016cac7709f66e7d20145",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\workspace\\clone\\route.ts": {
+    "mtime": 1779548662.2361279,
+    "ast_hash": "58e875a20d02a493f46409b88010d978",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\workspace\\context\\route.ts": {
+    "mtime": 1779555414.5892558,
+    "ast_hash": "01316b1ca649db59a8384408c3b4b3f6",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\workspace\\file-content\\route.ts": {
+    "mtime": 1779555431.8890932,
+    "ast_hash": "1f29bb131375b171090e96220feb540a",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\workspace\\files\\route.ts": {
+    "mtime": 1779548700.9812038,
+    "ast_hash": "b8f199138ceeb09974ef4dc51f564637",
+    "semantic_hash": ""
+  },
+  "C:\\taechapat\\AGENT-COMPANY\\nexmind-app\\src\\app\\api\\workspace\\git\\route.ts": {
+    "mtime": 1779548688.0951414,
+    "ast_hash": "05ee6df456f95191b954e8e4c8035f5f",
+    "semantic_hash": ""
+  }
+}

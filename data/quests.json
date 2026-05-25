@@ -1,0 +1,105 @@
+[
+  {
+    "id": "q1",
+    "title": "Implement Claude API streaming",
+    "description": "เพิ่ม streaming response ให้ chat UI ใน guild room เพื่อให้รู้สึก real-time มากขึ้น",
+    "proposedBy": "rex",
+    "dept": "Dev Forge",
+    "priority": "HIGH",
+    "status": "REJECTED",
+    "createdAt": "2026-05-22 09:30",
+    "updatedAt": "2026-05-22T18:08:56.119Z"
+  },
+  {
+    "id": "q2",
+    "title": "Social post automation pipeline",
+    "description": "สร้าง workflow ที่ VIBE generate post → GRACE review → auto post ตาม schedule ที่กำหนด",
+    "proposedBy": "vibe",
+    "dept": "Content",
+    "priority": "HIGH",
+    "status": "PENDING",
+    "createdAt": "2026-05-22 09:00"
+  },
+  {
+    "id": "q3",
+    "title": "Agent avatar pixel art set",
+    "description": "ออกแบบ pixel art avatar สำหรับทุก agent เพื่อใช้ใน Roster และ Guild Room scene",
+    "proposedBy": "pixel",
+    "dept": "Design",
+    "priority": "MEDIUM",
+    "status": "APPROVED",
+    "createdAt": "2026-05-21 14:00"
+  },
+  {
+    "id": "q4",
+    "title": "Gold signal daily digest",
+    "description": "ให้ HAWK ส่ง morning brief สรุป Gold/XAU outlook ทุกวัน 08:00 ไปยัง dashboard",
+    "proposedBy": "hawk",
+    "dept": "Trading",
+    "priority": "HIGH",
+    "status": "IN_PROGRESS",
+    "createdAt": "2026-05-21 11:00"
+  },
+  {
+    "id": "q5",
+    "title": "MEMO database schema",
+    "description": "ออกแบบ schema สำหรับ Scroll Vault — decisions, lessons, preferences, project context",
+    "proposedBy": "memo",
+    "dept": "Intelligence",
+    "priority": "MEDIUM",
+    "status": "REJECTED",
+    "createdAt": "2026-05-22 08:00",
+    "updatedAt": "2026-05-22T18:08:54.436Z"
+  },
+  {
+    "id": "q6",
+    "title": "Affiliate landing page v2",
+    "description": "redesign affiliate page ใหม่ ใช้ Ghibli theme ให้ conversion rate ดีขึ้น",
+    "proposedBy": "luna",
+    "dept": "Design",
+    "priority": "MEDIUM",
+    "status": "PENDING",
+    "createdAt": "2026-05-20 16:00"
+  },
+  {
+    "id": "q7",
+    "title": "P&L tracker dashboard widget",
+    "description": "เพิ่ม revenue widget ใน dashboard ที่ pull ข้อมูลจาก Google Sheet อัตโนมัติ",
+    "proposedBy": "coin",
+    "dept": "Finance",
+    "priority": "MEDIUM",
+    "status": "APPROVED",
+    "createdAt": "2026-05-19 10:00",
+    "updatedAt": "2026-05-22T18:08:52.463Z"
+  },
+  {
+    "id": "q8",
+    "title": "n8n + LINE Notify integration",
+    "description": "เชื่อม n8n workflow กับ LINE Notify เพื่อให้ agent notify TAEC เมื่องานเสร็จ",
+    "proposedBy": "nexus",
+    "dept": "Systems",
+    "priority": "HIGH",
+    "status": "PENDING",
+    "createdAt": "2026-05-22 10:00"
+  },
+  {
+    "id": "q9",
+    "title": "SEO keyword cluster for Collagen",
+    "description": "research keyword cluster สำหรับ Collagen affiliate → 50+ keywords พร้อม intent",
+    "proposedBy": "scout",
+    "dept": "Content",
+    "priority": "LOW",
+    "status": "DONE",
+    "createdAt": "2026-05-18 09:00"
+  },
+  {
+    "id": "q10",
+    "title": "Backtest XAU EA strategy",
+    "description": "backtest strategy ใหม่บน XAU M15 ย้อนหลัง 2 ปี แล้ว report win rate + max drawdown",
+    "proposedBy": "auto",
+    "dept": "Trading",
+    "priority": "LOW",
+    "status": "PENDING",
+    "createdAt": "2026-05-20 13:00"
+  }
+]

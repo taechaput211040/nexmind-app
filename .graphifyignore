@@ -1,0 +1,41 @@
+# Build & deps — always exclude
+node_modules/
+.next/
+out/
+dist/
+.turbo/
+.git/
+
+# Generated data
+graphify-out/
+data/*.json
+public/
+
+# Non-code files (need LLM API — skip to run free)
+*.md
+*.mdx
+*.txt
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.svg
+*.mp4
+*.mov
+
+# Config & locks
+*.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+*.config.js
+*.config.ts
+next.config.*
+postcss.config.*
+tailwind.config.*
+
+# Env
+.env*
+*.env

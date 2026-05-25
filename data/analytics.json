@@ -1,0 +1,563 @@
+{
+  "range": "90d",
+  "kpis": [
+    {
+      "id": "rev",
+      "label": "Total Revenue",
+      "value": 383188,
+      "unit": "฿",
+      "delta": 12.4,
+      "trend": "up",
+      "color": "var(--gold)"
+    },
+    {
+      "id": "vis",
+      "label": "Visitors",
+      "value": 168717,
+      "unit": "",
+      "delta": 8.1,
+      "trend": "up",
+      "color": "var(--cyan)"
+    },
+    {
+      "id": "conv",
+      "label": "Conversions",
+      "value": 514,
+      "unit": "",
+      "delta": -2.3,
+      "trend": "down",
+      "color": "var(--pink)"
+    },
+    {
+      "id": "rate",
+      "label": "Avg Conv. Rate",
+      "value": 3.8,
+      "unit": "%",
+      "delta": 0.4,
+      "trend": "up",
+      "color": "var(--green)"
+    }
+  ],
+  "timeseries": [
+    {
+      "date": "2026-02-24",
+      "revenue": 5293,
+      "visitors": 2272
+    },
+    {
+      "date": "2026-02-25",
+      "revenue": 5953,
+      "visitors": 1952
+    },
+    {
+      "date": "2026-02-26",
+      "revenue": 5943,
+      "visitors": 1703
+    },
+    {
+      "date": "2026-02-27",
+      "revenue": 5337,
+      "visitors": 1651
+    },
+    {
+      "date": "2026-02-28",
+      "revenue": 4476,
+      "visitors": 1823
+    },
+    {
+      "date": "2026-03-01",
+      "revenue": 3805,
+      "visitors": 2133
+    },
+    {
+      "date": "2026-03-02",
+      "revenue": 3664,
+      "visitors": 2424
+    },
+    {
+      "date": "2026-03-03",
+      "revenue": 4126,
+      "visitors": 2543
+    },
+    {
+      "date": "2026-03-04",
+      "revenue": 4961,
+      "visitors": 2411
+    },
+    {
+      "date": "2026-03-05",
+      "revenue": 5746,
+      "visitors": 2063
+    },
+    {
+      "date": "2026-03-06",
+      "revenue": 6066,
+      "visitors": 1635
+    },
+    {
+      "date": "2026-03-07",
+      "revenue": 5709,
+      "visitors": 1298
+    },
+    {
+      "date": "2026-03-08",
+      "revenue": 4774,
+      "visitors": 1181
+    },
+    {
+      "date": "2026-03-09",
+      "revenue": 3621,
+      "visitors": 1312
+    },
+    {
+      "date": "2026-03-10",
+      "revenue": 2713,
+      "visitors": 1605
+    },
+    {
+      "date": "2026-03-11",
+      "revenue": 2398,
+      "visitors": 1904
+    },
+    {
+      "date": "2026-03-12",
+      "revenue": 2751,
+      "visitors": 2055
+    },
+    {
+      "date": "2026-03-13",
+      "revenue": 3541,
+      "visitors": 1980
+    },
+    {
+      "date": "2026-03-14",
+      "revenue": 4346,
+      "visitors": 1714
+    },
+    {
+      "date": "2026-03-15",
+      "revenue": 4752,
+      "visitors": 1390
+    },
+    {
+      "date": "2026-03-16",
+      "revenue": 4550,
+      "visitors": 1173
+    },
+    {
+      "date": "2026-03-17",
+      "revenue": 3835,
+      "visitors": 1184
+    },
+    {
+      "date": "2026-03-18",
+      "revenue": 2961,
+      "visitors": 1442
+    },
+    {
+      "date": "2026-03-19",
+      "revenue": 2377,
+      "visitors": 1853
+    },
+    {
+      "date": "2026-03-20",
+      "revenue": 2407,
+      "visitors": 2253
+    },
+    {
+      "date": "2026-03-21",
+      "revenue": 3102,
+      "visitors": 2484
+    },
+    {
+      "date": "2026-03-22",
+      "revenue": 4209,
+      "visitors": 2466
+    },
+    {
+      "date": "2026-03-23",
+      "revenue": 5286,
+      "visitors": 2233
+    },
+    {
+      "date": "2026-03-24",
+      "revenue": 5907,
+      "visitors": 1918
+    },
+    {
+      "date": "2026-03-25",
+      "revenue": 5857,
+      "visitors": 1686
+    },
+    {
+      "date": "2026-03-26",
+      "revenue": 5231,
+      "visitors": 1656
+    },
+    {
+      "date": "2026-03-27",
+      "revenue": 4383,
+      "visitors": 1849
+    },
+    {
+      "date": "2026-03-28",
+      "revenue": 3758,
+      "visitors": 2169
+    },
+    {
+      "date": "2026-03-29",
+      "revenue": 3679,
+      "visitors": 2458
+    },
+    {
+      "date": "2026-03-30",
+      "revenue": 4196,
+      "visitors": 2565
+    },
+    {
+      "date": "2026-03-31",
+      "revenue": 5059,
+      "visitors": 2417
+    },
+    {
+      "date": "2026-04-01",
+      "revenue": 5837,
+      "visitors": 2060
+    },
+    {
+      "date": "2026-04-02",
+      "revenue": 6124,
+      "visitors": 1634
+    },
+    {
+      "date": "2026-04-03",
+      "revenue": 5727,
+      "visitors": 1308
+    },
+    {
+      "date": "2026-04-04",
+      "revenue": 4766,
+      "visitors": 1207
+    },
+    {
+      "date": "2026-04-05",
+      "revenue": 3618,
+      "visitors": 1350
+    },
+    {
+      "date": "2026-04-06",
+      "revenue": 2741,
+      "visitors": 1644
+    },
+    {
+      "date": "2026-04-07",
+      "revenue": 2468,
+      "visitors": 1932
+    },
+    {
+      "date": "2026-04-08",
+      "revenue": 2853,
+      "visitors": 2061
+    },
+    {
+      "date": "2026-04-09",
+      "revenue": 3647,
+      "visitors": 1964
+    },
+    {
+      "date": "2026-04-10",
+      "revenue": 4420,
+      "visitors": 1682
+    },
+    {
+      "date": "2026-04-11",
+      "revenue": 4769,
+      "visitors": 1354
+    },
+    {
+      "date": "2026-04-12",
+      "revenue": 4506,
+      "visitors": 1145
+    },
+    {
+      "date": "2026-04-13",
+      "revenue": 3748,
+      "visitors": 1171
+    },
+    {
+      "date": "2026-04-14",
+      "revenue": 2865,
+      "visitors": 1442
+    },
+    {
+      "date": "2026-04-15",
+      "revenue": 2303,
+      "visitors": 1857
+    },
+    {
+      "date": "2026-04-16",
+      "revenue": 2373,
+      "visitors": 2249
+    },
+    {
+      "date": "2026-04-17",
+      "revenue": 3102,
+      "visitors": 2465
+    },
+    {
+      "date": "2026-04-18",
+      "revenue": 4218,
+      "visitors": 2432
+    },
+    {
+      "date": "2026-04-19",
+      "revenue": 5275,
+      "visitors": 2192
+    },
+    {
+      "date": "2026-04-20",
+      "revenue": 5856,
+      "visitors": 1883
+    },
+    {
+      "date": "2026-04-21",
+      "revenue": 5766,
+      "visitors": 1668
+    },
+    {
+      "date": "2026-04-22",
+      "revenue": 5121,
+      "visitors": 1662
+    },
+    {
+      "date": "2026-04-23",
+      "revenue": 4288,
+      "visitors": 1874
+    },
+    {
+      "date": "2026-04-24",
+      "revenue": 3710,
+      "visitors": 2204
+    },
+    {
+      "date": "2026-04-25",
+      "revenue": 3693,
+      "visitors": 2490
+    },
+    {
+      "date": "2026-04-26",
+      "revenue": 4264,
+      "visitors": 2584
+    },
+    {
+      "date": "2026-04-27",
+      "revenue": 5153,
+      "visitors": 2422
+    },
+    {
+      "date": "2026-04-28",
+      "revenue": 5923,
+      "visitors": 2057
+    },
+    {
+      "date": "2026-04-29",
+      "revenue": 6175,
+      "visitors": 1633
+    },
+    {
+      "date": "2026-04-30",
+      "revenue": 5740,
+      "visitors": 1320
+    },
+    {
+      "date": "2026-05-01",
+      "revenue": 4757,
+      "visitors": 1235
+    },
+    {
+      "date": "2026-05-02",
+      "revenue": 3615,
+      "visitors": 1390
+    },
+    {
+      "date": "2026-05-03",
+      "revenue": 2772,
+      "visitors": 1685
+    },
+    {
+      "date": "2026-05-04",
+      "revenue": 2544,
+      "visitors": 1960
+    },
+    {
+      "date": "2026-05-05",
+      "revenue": 2960,
+      "visitors": 2068
+    },
+    {
+      "date": "2026-05-06",
+      "revenue": 3756,
+      "visitors": 1948
+    },
+    {
+      "date": "2026-05-07",
+      "revenue": 4496,
+      "visitors": 1651
+    },
+    {
+      "date": "2026-05-08",
+      "revenue": 4787,
+      "visitors": 1320
+    },
+    {
+      "date": "2026-05-09",
+      "revenue": 4463,
+      "visitors": 1120
+    },
+    {
+      "date": "2026-05-10",
+      "revenue": 3665,
+      "visitors": 1161
+    },
+    {
+      "date": "2026-05-11",
+      "revenue": 2774,
+      "visitors": 1443
+    },
+    {
+      "date": "2026-05-12",
+      "revenue": 2236,
+      "visitors": 1860
+    },
+    {
+      "date": "2026-05-13",
+      "revenue": 2344,
+      "visitors": 2244
+    },
+    {
+      "date": "2026-05-14",
+      "revenue": 3105,
+      "visitors": 2444
+    },
+    {
+      "date": "2026-05-15",
+      "revenue": 4228,
+      "visitors": 2396
+    },
+    {
+      "date": "2026-05-16",
+      "revenue": 5262,
+      "visitors": 2149
+    },
+    {
+      "date": "2026-05-17",
+      "revenue": 5800,
+      "visitors": 1846
+    },
+    {
+      "date": "2026-05-18",
+      "revenue": 5669,
+      "visitors": 1650
+    },
+    {
+      "date": "2026-05-19",
+      "revenue": 5006,
+      "visitors": 1667
+    },
+    {
+      "date": "2026-05-20",
+      "revenue": 4190,
+      "visitors": 1898
+    },
+    {
+      "date": "2026-05-21",
+      "revenue": 3661,
+      "visitors": 2237
+    },
+    {
+      "date": "2026-05-22",
+      "revenue": 3706,
+      "visitors": 2519
+    },
+    {
+      "date": "2026-05-23",
+      "revenue": 4329,
+      "visitors": 2600
+    },
+    {
+      "date": "2026-05-24",
+      "revenue": 5242,
+      "visitors": 2425
+    }
+  ],
+  "breakdown": [
+    {
+      "label": "Affiliate",
+      "value": 47,
+      "color": "var(--gold)"
+    },
+    {
+      "label": "Content",
+      "value": 26,
+      "color": "var(--cyan)"
+    },
+    {
+      "label": "Trading",
+      "value": 18,
+      "color": "var(--pink)"
+    },
+    {
+      "label": "Other",
+      "value": 9,
+      "color": "var(--green)"
+    }
+  ],
+  "table": [
+    {
+      "id": "t1",
+      "channel": "Affiliate — Collagen",
+      "agent": "SCOUT",
+      "conversions": 184,
+      "revenue": 33120,
+      "ctr": 4.2,
+      "status": "active"
+    },
+    {
+      "id": "t2",
+      "channel": "Content — AI Tools",
+      "agent": "INK",
+      "conversions": 97,
+      "revenue": 14550,
+      "ctr": 3.1,
+      "status": "active"
+    },
+    {
+      "id": "t3",
+      "channel": "XAU/USD Signals",
+      "agent": "HAWK",
+      "conversions": 42,
+      "revenue": 21000,
+      "ctr": 6.8,
+      "status": "review"
+    },
+    {
+      "id": "t4",
+      "channel": "Newsletter Funnel",
+      "agent": "INK",
+      "conversions": 63,
+      "revenue": 9450,
+      "ctr": 2.4,
+      "status": "paused"
+    },
+    {
+      "id": "t5",
+      "channel": "TikTok Organic",
+      "agent": "SCOUT",
+      "conversions": 128,
+      "revenue": 7680,
+      "ctr": 5.5,
+      "status": "active"
+    }
+  ],
+  "updatedAt": "2026-05-24T15:35:43.352Z"
+}

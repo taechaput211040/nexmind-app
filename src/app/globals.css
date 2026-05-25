@@ -1,26 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @import "tailwindcss";
 
+/* =======================================================
+   NEXMIND — Design System
+   Theme: Futuristic Arcane · Dark Nebula + Magic Glow
+   All pages must use var(--variable-name), never raw hex.
+======================================================= */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+  /* ── Base void palette ────────────────────────────── */
+  --nebula-bg:   #07071a;           /* page background */
+  --void:        #07071a;
+  --deep:        #0b0b24;
+  --card:        rgba(255,255,255,0.04);
+  --panel:       rgba(255,255,255,0.06);
+  --hover:       rgba(255,255,255,0.09);
+
+  /* ── Magic accent colors ──────────────────────────── */
+  --magic-purple:  #9b6dff;
+  --magic-pink:    #e040fb;
+  --magic-cyan:    #22d4ee;
+  --arcane-gold:   #ffc832;
+  --arcane-emerald:#00e676;
+  --arcane-rune:   #7c7cb0;
+  --arcane-void:   #07071a;
+
+  /* ── Glow shadows (use in box-shadow / text-shadow) ── */
+  --magic-glow-purple:  0 0 22px rgba(155,109,255,0.55);
+  --magic-glow-pink:    0 0 22px rgba(224,64,251,0.55);
+  --magic-glow-cyan:    0 0 22px rgba(34,212,238,0.55);
+  --magic-glow-gold:    0 0 22px rgba(255,200,50,0.55);
+  --magic-glow-emerald: 0 0 22px rgba(0,230,118,0.50);
+  --magic-glow-soft:    0 4px 32px rgba(155,109,255,0.12), 0 1px 8px rgba(0,0,0,0.5);
+  --magic-glow-aurora:  0 0 18px rgba(34,212,238,0.45), 0 0 40px rgba(155,109,255,0.30);
+  --magic-text-glow:    0 0 12px rgba(34,212,238,0.7);
+
+  /* ── Glass card system ────────────────────────────── */
+  /* ALWAYS use these three together for any card/panel  */
+  --magic-glass:         rgba(255,255,255,0.055);
+  --magic-glass-border:  rgba(255,255,255,0.10);
+  --magic-glass-blur:    14px;
+
+  /* ── Gradient utilities ───────────────────────────── */
+  --magic-grad-heading:  linear-gradient(135deg, #9b6dff 0%, #22d4ee 50%, #e040fb 100%);
+  --magic-grad-cta:      linear-gradient(135deg, #22d4ee 0%, #9b6dff 100%);
+  --aurora-soft:         rgba(155,109,255,0.10);
+
+  /* ── Ambient orb colors (for background blobs) ──────── */
+  --magic-orb-1:  radial-gradient(circle, rgba(155,109,255,0.18) 0%, transparent 70%);
+  --magic-orb-2:  radial-gradient(circle, rgba(34,212,238,0.14) 0%, transparent 70%);
+  --magic-orb-3:  radial-gradient(circle, rgba(224,64,251,0.10) 0%, transparent 70%);
+
+  /* ── Command Bridge UI tokens ─────────────────────── */
+  --cmd-text:          #e0e0f4;
+  --cmd-text-soft:     #8888bb;
+  --cmd-label:         #5a5a88;
+  --cmd-accent:        #9b6dff;
+  --cmd-divider:       rgba(255,255,255,0.06);
+  --cmd-card-radius:   16px;
+  --cmd-stat-shadow:   0 4px 28px rgba(0,0,0,0.45);
+  --cmd-stat-label:    #c0c0e0;
+  --cmd-stat-unit:     #6060a0;
+  --cmd-stat-foot:     rgba(255,255,255,0.06);
+
+  /* ── Legacy compat (keep for old components) ─────── */
+  --text:     #e0e0f4;
+  --muted:    #8888bb;
+  --dim:      #5a5a88;
+  --border:   rgba(255,255,255,0.10);
+  --ring:     #9b6dff;
+  --rim:      rgba(155,109,255,0.30);
+
+  --purple:   #9b6dff;
+  --pink:     #e040fb;
+  --cyan:     #22d4ee;
+  --gold:     #ffc832;
+  --green:    #00e676;
+  --red:      #ff5252;
+  --orange:   #ff9800;
+
+  --dept-secretary:    #9b6dff;
+  --dept-dev:          #22d4ee;
+  --dept-design:       #e040fb;
+  --dept-content:      #ffc832;
+  --dept-trading:      #00e676;
+  --dept-intelligence: #66b2ff;
+  --dept-finance:      #ffa726;
+  --dept-systems:      #ff5252;
+
+  /* ── Pixel-art Dungeon Map theme ──────────────────── */
+  /* Retro dungeon palette, cohesive with Dark Nebula.   */
+  /* Stone / structure tones */
+  --dungeon-wall:    #1c1a3a;       /* dungeon wall stone */
+  --dungeon-floor:   #2a2750;       /* walkable floor tile */
+  /* Torch lighting (warm glow, pairs with arcane-gold) */
+  --torch-glow:      0 0 14px rgba(255,200,50,0.65), 0 0 4px rgba(255,152,0,0.85);
+  /* Parchment map surface */
+  --map-parchment:   #14122e;       /* aged map backdrop */
+  /* Room-node states (reuse purple/pink/cyan accents) */
+  --room-locked:     #3a3760;       /* dim, inaccessible */
+  --room-active:     #22d4ee;       /* current room (cyan) */
+  --room-cleared:    #9b6dff;       /* completed (purple) */
+  /* Path / corridor connector lines (pink accent) */
+  --corridor:        #e040fb;
+  /* Pixel-art hard-edge helper (no blur — crisp 8-bit look) */
+  --pixel-edge:      2px 2px 0 rgba(7,7,26,0.9);
+  --pixel-box-edge:  4px 4px 0 rgba(7,7,26,0.9);
+
+  /* ── /map page — Dungeon-Map theme ────────────────── */
+  /* Pixel-art dungeon palette, cohesive with Dark Nebula. */
+  /* Stone / dirt structure tones */
+  --map-stone:       #232048;       /* mid stone block */
+  --map-floor:       #2a2750;       /* walkable dirt floor */
+  --map-wall:        #15132e;       /* dark wall block */
+  /* Torch lighting — warm orange accent + glow */
+  --map-torch:       #ff9a3c;       /* warm torch flame */
+  --map-glow:        0 0 14px rgba(255,154,60,0.65), 0 0 4px rgba(255,200,50,0.85);
+  /* Path / corridor connector lines */
+  --map-path:        #5a5a88;       /* dim corridor connector */
+  /* Fog-of-war overlay (unexplored regions) */
+  --map-fog:         rgba(7,7,26,0.82);
+  /* Node-state colors — active nodes reuse purple/pink/cyan */
+  --map-locked:      #3a3760;       /* dim, inaccessible */
+  --map-unlocked:    #22d4ee;       /* available next (cyan) */
+  --map-current:     #9b6dff;       /* current node (purple) */
+  --map-cleared:     #e040fb;       /* completed (pink) */
+  /* Pixel-art rendering — crisp 8-bit edges, no smoothing */
+  --map-render:      pixelated;     /* image-rendering value */
+  --map-node-edge:   3px 3px 0 rgba(7,7,26,0.9);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ── Global resets ──────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--nebula-bg);
+  color: var(--cmd-text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(155,109,255,0.35); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(155,109,255,0.6); }
+
+/* ── Animations ─────────────────────────────────────── */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(1.15); }
+}
+
+@keyframes orb-drift {
+  0%   { transform: translate(0, 0)   scale(1); }
+  33%  { transform: translate(30px, -20px) scale(1.06); }
+  66%  { transform: translate(-20px, 15px) scale(0.96); }
+  100% { transform: translate(0, 0)   scale(1); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* ── Utility classes ────────────────────────────────── */
+.magic-glass {
+  background:       var(--magic-glass);
+  border:           1px solid var(--magic-glass-border);
+  box-shadow:       var(--magic-glow-soft);
+  backdrop-filter:  blur(var(--magic-glass-blur));
+  -webkit-backdrop-filter: blur(var(--magic-glass-blur));
+  border-radius:    var(--cmd-card-radius);
+}
+
+.magic-text-gradient {
+  background:             var(--magic-grad-heading);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip:         text;
+}
+
+@keyframes rune-spin {
+  to { transform: rotate(360deg); }
+}
+
+.page-enter {
+  animation: fade-up .45s ease both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--magic-grad-cta);
+  color: var(--text);
+  border: 1px solid rgba(34,212,238,0.35);
+  box-shadow: var(--magic-glow-cyan);
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+  display: inline-block;
+  background: var(--dim);
+  box-shadow: 0 0 10px currentColor;
+}
+
+.status-online { color: var(--green); background: var(--green); }
+.status-busy { color: var(--gold); background: var(--gold); }
+.status-idle { color: var(--cyan); background: var(--cyan); opacity: .7; }
+.status-offline { color: var(--dim); background: var(--dim); opacity: .55; }
+
+.tier-legendary,
+.tier-epic,
+.tier-rare {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  border: 1px solid currentColor;
+}
+
+.tier-legendary {
+  color: var(--gold);
+  background: rgba(255,200,50,0.10);
+}
+
+.tier-epic {
+  color: var(--purple);
+  background: rgba(155,109,255,0.12);
+}
+
+.tier-rare {
+  color: var(--cyan);
+  background: rgba(34,212,238,0.10);
 }

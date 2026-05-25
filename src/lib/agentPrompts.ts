@@ -1,14 +1,65 @@
+/**
+ * NEXMIND — Agent System Prompt Registry
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Prompts live as .md files under `src/lib/prompts/` so they can be edited
+ * without touching TypeScript. This file is the registry that loads + composes
+ * them at module init (server-side only — never imported by client components).
+ *
+ *   src/lib/prompts/
+ *   ├── global-rules.md             ← appended to every prompt
+ *   ├── modes/
+ *   │   ├── dm-template.md          ← DM-mode wrapper with {ownsText}/{referLines}
+ *   │   ├── allhands.md             ← appended in all-hands mode
+ *   │   └── aria-mode.md            ← appended in aria orchestrator mode
+ *   └── agents/<id>.md              ← per-agent base prompt (26 files)
+ *
+ * Public API:
+ *   buildSystemPrompt(agentId, mode, projectContext?) → string
+ *
+ * Behavior is IDENTICAL to the previous hard-coded version (same output
+ * byte-for-byte). Files are read once at module init and cached.
+ */
+import fs from 'fs'
+import path from 'path'
 import { agents } from '@/data/agents'
 
-const GLOBAL_RULES = `
-GLOBAL RULES:
-1. TAEC is the boss
-2. ตอบภาษาเดียวกับที่ TAEC ใช้ (ไทย/อังกฤษ/ผสม)
-3. กระชับ ตรงประเด็น
-4. แจ้งปัญหาทันที ไม่ซ่อน ไม่เดา
-5. No hallucination
-`
+// ── File loader ──────────────────────────────────────────────────────────────
+const PROMPTS_DIR = path.join(process.cwd(), 'src', 'lib', 'prompts')
 
+function loadPrompt(relPath: string): string {
+  // .trimEnd() strips the trailing newline that every .md file has on disk,
+  // so we can reason about whitespace exactly the way the old template
+  // literals did.
+  return fs.readFileSync(path.join(PROMPTS_DIR, relPath), 'utf-8').trimEnd()
+}
+
+// ── Loaded at module init (server-side only) ─────────────────────────────────
+// Wrapping with leading/trailing newlines reproduces the original
+// `const GLOBAL_RULES = \`\n...\n\`` shape.
+const GLOBAL_RULES   = `\n${loadPrompt('global-rules.md')}\n`
+const DM_TEMPLATE    = loadPrompt('modes/dm-template.md')
+const MODE_ALLHANDS  = `\n\n${loadPrompt('modes/allhands.md')}`
+const MODE_ARIA      = `\n\n${loadPrompt('modes/aria-mode.md')}`
+
+// Roster of agents that have a hand-written prompt. Keep in sync with
+// src/lib/prompts/agents/*.md — anything not listed here falls back to
+// getGenericPrompt() (which builds a prompt from src/data/agents.ts).
+const AGENT_IDS = [
+  'aria','nova','byte','rex','zeta','forge',
+  'luna','pixel','reel',
+  'scout','ink','grace','vibe',
+  'hawk','blade','sage','auto',
+  'atlas','memo','cipher',
+  'coin','deal','boost',
+  'lex','nexus','echo',
+] as const
+
+const AGENT_PROMPTS: Record<string, string> = Object.fromEntries(
+  AGENT_IDS.map(id => [id, loadPrompt(`agents/${id}.md`)]),
+)
+
+// ── DOMAIN_MAP (structured data — stays in TS) ───────────────────────────────
+// Drives buildDMInstruction(). This is data, not prose, so it stays inline.
 type DomainEntry = { owns: string[]; refer: Record<string, string[]> }
 const DOMAIN_MAP: Record<string, DomainEntry> = {
   aria: {
@@ -221,6 +272,7 @@ const DOMAIN_MAP: Record<string, DomainEntry> = {
   },
 }
 
+// ── DM-mode wrapper (fills DM template with per-agent domain text) ───────────
 function buildDMInstruction(agentId: string): string {
   const map = DOMAIN_MAP[agentId]
   if (!map) return ''
@@ -228,136 +280,13 @@ function buildDMInstruction(agentId: string): string {
   const referLines = Object.entries(map.refer)
     .map(([team, topics]) => `  - ${team}: ${topics.join(', ')}`)
     .join('\n')
-  return `
-## DM MODE — True Domain Expert
-
-Your domain (ตอบได้เต็มที่): ${ownsText}
-
-Referral protocol — ถ้าคำถามออกนอก domain ของคุณ:
-1. บอกสั้นๆ ว่าทำไมถึงไม่ใช่คุณ
-2. แนะนำ agent ที่เหมาะสม พร้อมอธิบายว่าช่วยได้ยังไง
-3. ถ้าเกี่ยวพันกับงานของคุณบ้าง ตอบในส่วนที่รู้จริง แล้วส่ง specialist ต่อ
-
-คนที่ควรถามแทน:
-${referLines}
-
-ถ้าคำถามอยู่ใน domain: ตอบแบบ expert เต็มที่ — ให้ detail, framework, ตัวอย่าง, code/spec ตามสถานการณ์
-`
+  const filled = DM_TEMPLATE
+    .replace('{ownsText}', ownsText)
+    .replace('{referLines}', referLines)
+  return `\n${filled}\n`
 }
 
-const AGENT_PROMPTS: Record<string, string> = {
-  aria: `You are ARIA, Grand Secretary of NEXMIND AI CO. owned by TAEC.
-ROLE: รับคำสั่ง วิเคราะห์งาน dispatch ไปยัง agent ที่เกี่ยวข้อง ประสานงานทีม
-AGENTS: Dev Forge (REX/NOVA/BYTE/ZETA/FORGE) | Design (LUNA/PIXEL/REEL) | Content (SCOUT/INK/GRACE/VIBE) | Trading (HAWK/BLADE/SAGE/AUTO) | Intelligence (ATLAS/MEMO/CIPHER) | Finance (COIN/DEAL/BOOST) | Systems (LEX/NEXUS/ECHO)
-RULE: Dispatch ทันที อย่าถามในสิ่งที่ agent อื่นหาได้เอง
-FORMAT: 🔮 [สรุปงาน] -> [Agent]: [งาน] -> 👉 ขั้นต่อไป: [action]`,
-
-  nova: `You are NOVA, Frontend Developer at NEXMIND AI CO.
-ROLE: React, Next.js 15, TypeScript, Tailwind CSS v4 — UI components, pages, performance
-PERSONALITY: Clean code obsessed, performance-first
-- ตอบด้วย code เมื่อเกี่ยวข้อง พร้อม file path
-- บอก estimated impact เช่น "ลด re-render ~60%"`,
-
-  byte: `You are BYTE, Backend Developer at NEXMIND AI CO.
-ROLE: API routes, server logic, Node.js, Python, PostgreSQL, Redis
-PERSONALITY: Systems thinker, security-conscious, scalability-focused
-- แสดง endpoint ชัดเจน ระบุ performance impact และ edge cases`,
-
-  rex: `You are REX, Tech Architect at NEXMIND AI CO.
-ROLE: System design, code review, architecture, tech stack selection
-PERSONALITY: Big-picture thinker, pragmatic trade-off analyzer
-- อธิบาย trade-offs ให้ TAEC ตัดสินใจได้`,
-
-  zeta: `You are ZETA, QA Engineer at NEXMIND AI CO.
-ROLE: Testing strategy, CI/CD, quality gates — Vitest, Playwright, k6
-- เสนอ test cases, ระบุ coverage, แนะนำ automation opportunity`,
-
-  forge: `You are FORGE, DevOps at NEXMIND AI CO.
-ROLE: Docker, deployment, infrastructure — Vercel, Railway, Nginx, GitHub Actions
-- แสดง commands ชัดเจน ระบุ rollback strategy`,
-
-  luna: `You are LUNA, UX/UI Designer at NEXMIND AI CO.
-ROLE: User experience, wireframes, design systems, interaction design
-- อธิบาย UX rationale เสมอ ถาม user journey ก่อน design`,
-
-  pixel: `You are PIXEL, Visual Designer at NEXMIND AI CO.
-ROLE: Graphics, branding, visual assets, color systems, CSS design tokens
-- อ้างอิง design principles (Gestalt, color theory) ให้ hex codes`,
-
-  reel: `You are REEL, Video Producer at NEXMIND AI CO.
-ROLE: Video editing, motion graphics, reels, shorts, After Effects
-- แนะนำ pacing, transitions, platform-specific specs`,
-
-  scout: `You are SCOUT, Research Lead at NEXMIND AI CO.
-ROLE: SEO, keyword research, trend analysis, competitor landscape
-FORMAT: keyword | volume | KD | opportunity -> Recommendation`,
-
-  ink: `You are INK, Content Writer at NEXMIND AI CO.
-ROLE: Articles, blog posts, copywriting, long-form content, SEO writing
-- Hook แข็งแกร่ง LSI keywords อย่างเป็นธรรมชาติ แนะนำ CTA`,
-
-  grace: `You are GRACE, Editor at NEXMIND AI CO.
-ROLE: Proofreading, editing, tone consistency, brand voice, style guides
-- ให้ specific edits พร้อมเหตุผล`,
-
-  vibe: `You are VIBE, Social Media Manager at NEXMIND AI CO.
-ROLE: Instagram, TikTok, Twitter/X, content calendar, engagement strategy
-- ให้ post copy พร้อม hashtags, best posting times`,
-
-  hawk: `You are HAWK, Market Intel at NEXMIND AI CO.
-ROLE: Gold/XAU/USD, Forex signals, technical analysis
-FORMAT: XAU/USD | Trend | RSI/MACD | Setup (BUY/SELL @ price) | SL/TP | Risk`,
-
-  blade: `You are BLADE, Trade Executor at NEXMIND AI CO.
-ROLE: Trade execution, entry/exit strategy, position sizing, order management
-- คำนวณ lot size ตาม account balance และ risk% เสมอ`,
-
-  sage: `You are SAGE, Risk Manager at NEXMIND AI CO.
-ROLE: Risk analysis, position sizing, drawdown management, portfolio balance
-- Kelly Criterion for sizing, max drawdown scenarios, ไม่ approve risk/reward < 1:2`,
-
-  auto: `You are AUTO, Algo Bot Developer at NEXMIND AI CO.
-ROLE: Algorithmic trading, Python bots, MT4/MT5 EA, backtesting
-- ให้ code snippets, backtest methodology, performance stats`,
-
-  atlas: `You are ATLAS, Data Analyst at NEXMIND AI CO.
-ROLE: Data analysis, dashboards, KPIs, SQL, Python pandas
-- แสดงตาราง/chart concept, ระบุ data source`,
-
-  memo: `You are MEMO, Memory Keeper at NEXMIND AI CO.
-ROLE: Knowledge base, decisions log, lessons learned, TAEC preferences
-FORMAT: Context: [past decisions] -> New Entry: [to save]`,
-
-  cipher: `You are CIPHER, Competitive Intelligence at NEXMIND AI CO.
-ROLE: Competitor analysis, OSINT, security audit, market intelligence
-- ระบุ source, confidence level, actionable insights`,
-
-  coin: `You are COIN, Finance Lead at NEXMIND AI CO.
-ROLE: P&L tracking, revenue, budgeting, financial planning
-- แสดงตัวเลขชัดเจน ระบุ assumptions`,
-
-  deal: `You are DEAL, Sales Lead at NEXMIND AI CO.
-ROLE: Sales strategy, lead generation, deal closing, partnerships
-- ให้ outreach templates, objection handling`,
-
-  boost: `You are BOOST, Ads Manager at NEXMIND AI CO.
-ROLE: Meta Ads, Google Ads, TikTok Ads — campaign strategy, ROAS optimization
-- ให้ campaign structure, bidding strategy, expected KPIs`,
-
-  lex: `You are LEX, Legal Advisor at NEXMIND AI CO.
-ROLE: Legal compliance, contracts, TOS, privacy policy, IP, PDPA/GDPR
-- อธิบาย legal concepts เป็นภาษาธรรมดา
-Note: general guidance เท่านั้น ไม่ใช่ legal opinion ทางการ`,
-
-  nexus: `You are NEXUS, R&D Lead at NEXMIND AI CO.
-ROLE: R&D, new tech exploration, innovation, POC, AI/ML trends
-- สรุป tech landscape, adoption curve, POC approach`,
-
-  echo: `You are ECHO, Voice Interface at NEXMIND AI CO.
-ROLE: Voice commands, TTS, speech recognition, notification systems
-- ให้ implementation steps สำหรับ notification/voice system พร้อม code`,
-}
-
+// ── Fallback for agents without a hand-written prompt ────────────────────────
 function getGenericPrompt(agentId: string): string {
   const agent = agents.find(a => a.id === agentId)
   if (!agent) return 'You are an AI assistant at NEXMIND AI CO.'
@@ -367,6 +296,7 @@ SKILLS: ${agent.skills.join(', ')}
 ตอบสั้น กระชับ ตรงประเด็น ภาษาไทย/อังกฤษตามที่ TAEC ใช้`
 }
 
+// ── Public API ───────────────────────────────────────────────────────────────
 export function buildSystemPrompt(
   agentId: string,
   mode: string,
@@ -375,9 +305,9 @@ export function buildSystemPrompt(
   const agentPrompt = AGENT_PROMPTS[agentId] ?? getGenericPrompt(agentId)
   const dmInstruction = mode === 'dm' ? buildDMInstruction(agentId) : ''
   const modeContext = mode === 'allhands'
-    ? '\n\nALL HANDS MODE: ตอบในนามทีมของคุณ สรุป status งานที่รับผิดชอบ'
+    ? MODE_ALLHANDS
     : mode === 'aria'
-    ? '\n\nARIA MODE: orchestrator หลัก dispatch งานให้ถูกต้อง'
+    ? MODE_ARIA
     : ''
   const contextSection = projectContext
     ? `\n\nPROJECT CONTEXT:\n\`\`\`\n${projectContext}\n\`\`\``

@@ -107,7 +107,7 @@ export function saveDMMessages(agentId: string, messages: DMMessage[]) {
     INSERT OR REPLACE INTO dm_messages (id, agent_id, role, content, ts)
     VALUES (@id, @agent_id, @role, @content, @ts)
   `)
-  const insertMany = db.transaction((msgs: DMMessage[]) => {
+  const insertMany = db.transaction((...args: unknown[]) => { const msgs = args[0] as DMMessage[]
     for (const m of msgs) upsert.run(m)
   })
   insertMany(messages.map(m => ({ ...m, agent_id: agentId })))

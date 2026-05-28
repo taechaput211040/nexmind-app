@@ -284,7 +284,7 @@ describe('CC session helpers', () => {
     const s = cc.getSession('sess-1')
     expect(s).toBeDefined()
     expect((s as Record<string, unknown>).title).toBe('Build auth system')
-    expect((s as Record<string, unknown & { messages: unknown[] }>).messages).toHaveLength(2)
+    expect((s as unknown as { messages: unknown[] }).messages).toHaveLength(2)
   })
 
   it('returns null for non-existent session', () => {

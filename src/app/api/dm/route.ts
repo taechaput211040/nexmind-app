@@ -14,7 +14,7 @@ function getEnv() {
     ? path.join(process.env.APPDATA ?? 'C:\\Users\\Default\\AppData\\Roaming', 'npm')
     : path.join(process.env.HOME ?? '/home/user', '.npm-global', 'bin')
   const env = { ...process.env, PATH: [npmGlobal, process.env.PATH].filter(Boolean).join(IS_WIN ? ';' : ':') }
-  delete env.ANTHROPIC_API_KEY
+  delete (env as Record<string, string | undefined>).ANTHROPIC_API_KEY
   return env
 }
 

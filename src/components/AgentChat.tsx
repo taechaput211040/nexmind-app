@@ -491,6 +491,133 @@ function ARIASummaryCard({ text }: { text: string }) {
   )
 }
 
+// ─── Agent Receipt ─────────────────────────────────────────────────────────
+interface AgentReceipt {
+  filesChanged: string[]
+  summary: string
+  tsPass: 'YES' | 'NO' | 'SKIPPED'
+}
+
+function parseReceipt(text: string): { receipt: AgentReceipt | null; cleanText: string } {
+  const match = text.match(/AGENT_RECEIPT_START([\s\S]*?)AGENT_RECEIPT_END/)
+  if (!match) return { receipt: null, cleanText: text }
+
+  const block = match[1]
+  const filesMatch = block.match(/files_changed:\s*(.+)/i)
+  const summaryMatch = block.match(/summary:\s*(.+)/i)
+  const tsMatch = block.match(/ts_pass:\s*(YES|NO|SKIPPED)/i)
+
+  let filesChanged: string[] = []
+  if (filesMatch) {
+    const raw = filesMatch[1].trim().replace(/^\[|\]$/g, '')
+    filesChanged = raw.split(',').map((f: string) => f.trim()).filter(Boolean)
+  }
+
+  const receipt: AgentReceipt = {
+    filesChanged,
+    summary: summaryMatch?.[1]?.trim() ?? '',
+    tsPass: ((tsMatch?.[1]?.toUpperCase()) ?? 'SKIPPED') as 'YES' | 'NO' | 'SKIPPED',
+  }
+
+  const cleanText = text.replace(/\n?AGENT_RECEIPT_START[\s\S]*?AGENT_RECEIPT_END\n?/g, '').trim()
+  return { receipt, cleanText }
+}
+
+function fileIcon(f: string): string {
+  const ext = f.split('.').pop()?.toLowerCase() ?? ''
+  if (ext === 'tsx' || ext === 'jsx') return '⚛'
+  if (ext === 'ts' || ext === 'js') return '📜'
+  if (ext === 'css' || ext === 'scss') return '🎨'
+  if (ext === 'md') return '📝'
+  if (ext === 'json') return '⚙️'
+  if (ext === 'py') return '🐍'
+  if (ext === 'sql') return '🗄️'
+  return '📄'
+}
+
+function AgentReceiptCard({ receipt, agentId }: { receipt: AgentReceipt; agentId: string }) {
+  const [open, setOpen] = useState(true)
+  const ag = agents.find(a => a.id === agentId)
+  const accentHex = ag?.color ?? '#6c63ff'
+  const emoji = agentEmoji[agentId] ?? '🤖'
+
+  const tsColor   = receipt.tsPass === 'YES' ? '#00ff88' : receipt.tsPass === 'NO' ? '#ff4466' : 'var(--dim)'
+  const tsBg      = receipt.tsPass === 'YES' ? 'rgba(0,255,136,.12)' : receipt.tsPass === 'NO' ? 'rgba(255,68,102,.12)' : 'rgba(255,255,255,.05)'
+  const tsBorder  = receipt.tsPass === 'YES' ? 'rgba(0,255,136,.35)' : receipt.tsPass === 'NO' ? 'rgba(255,68,102,.35)' : 'rgba(255,255,255,.12)'
+  const tsLabel   = receipt.tsPass === 'YES' ? '✓ TS PASS' : receipt.tsPass === 'NO' ? '✗ TS FAIL' : '— TS SKIP'
+  const hasFiles  = receipt.filesChanged.length > 0
+
+  return (
+    <div style={{
+      borderRadius: 10, overflow: 'hidden', marginTop: 6,
+      border: `1px solid ${accentHex}33`,
+      background: `linear-gradient(135deg,${accentHex}08,transparent)`,
+    }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{
+          width: '100%', background: `${accentHex}14`, border: 'none',
+          borderBottom: open ? `1px solid ${accentHex}22` : 'none',
+          display: 'flex', alignItems: 'center', gap: 8,
+          padding: '6px 10px', cursor: 'pointer', textAlign: 'left',
+        }}
+      >
+        <span style={{ fontSize: 12 }}>{emoji}</span>
+        <span style={{
+          fontSize: 9, fontFamily: "\'Space Mono\',monospace",
+          color: accentHex, fontWeight: 700, letterSpacing: 1,
+        }}>
+          RECEIPT · {hasFiles ? `${receipt.filesChanged.length} file${receipt.filesChanged.length > 1 ? 's' : ''}` : 'no files'}
+        </span>
+        <span style={{ flex: 1 }} />
+        <span style={{
+          fontSize: 9, fontFamily: "\'Space Mono\',monospace",
+          padding: '2px 7px', borderRadius: 6, flexShrink: 0,
+          background: tsBg, color: tsColor, border: `1px solid ${tsBorder}`,
+        }}>{tsLabel}</span>
+        <span style={{ fontSize: 9, color: 'var(--dim)', marginLeft: 4 }}>{open ? '▲' : '▼'}</span>
+      </button>
+
+      {open && (
+        <div style={{ padding: '6px 10px 8px', display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {hasFiles && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+              {receipt.filesChanged.map((f, i) => {
+                const parts = f.replace(/\\\\/g, '/').split('/')
+                const short = parts.length > 2 ? '…/' + parts.slice(-2).join('/') : f
+                return (
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ fontSize: 11, flexShrink: 0 }}>{fileIcon(f)}</span>
+                    <span style={{
+                      fontSize: 10, fontFamily: "\'Space Mono\',monospace",
+                      color: 'var(--muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+                    }} title={f}>{short}</span>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+          {receipt.summary && (
+            <p style={{
+              margin: hasFiles ? '4px 0 0' : 0,
+              fontSize: 11, color: 'var(--dim)', lineHeight: 1.55,
+              borderTop: hasFiles ? `1px solid ${accentHex}18` : 'none',
+              paddingTop: hasFiles ? 5 : 0,
+            }}>
+              {receipt.summary}
+            </p>
+          )}
+          {!hasFiles && !receipt.summary && (
+            <p style={{ margin: 0, fontSize: 10, color: 'var(--dim)', fontFamily: "\'Space Mono\',monospace" }}>
+              ไม่มี files ที่เปลี่ยนแปลง
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ─── Tool Call Block ──────────────────────────────────────────────────────
 function ToolCallBlock({ event, result }: {
   event: AgentEvent & { type: 'tool_call' }
@@ -612,20 +739,33 @@ function AgentTurn({ turn, isActive, isCCMode }: { turn: Turn; isActive?: boolea
           // ARIA pipeline summary → special card
           const isARIASummary = turn.agentId === 'aria' && turn.isPipelineAgent && turn.pipelineRole?.includes('สรุป')
           if (isARIASummary) return <ARIASummaryCard key="aria-sum" text={turn.text} />
+
+          // Parse AGENT_RECEIPT for all agent turns
+          const { receipt, cleanText } = (turn.role === 'agent' && turn.agentId)
+            ? parseReceipt(turn.text)
+            : { receipt: null, cleanText: turn.text }
+
           return (
-            <div style={{
-              background: turn.role === 'taec'
-                ? 'linear-gradient(135deg,rgba(255,215,0,.1),rgba(255,215,0,.05))'
-                : `linear-gradient(135deg,${accentHex}0a,transparent)`,
-              border: turn.role === 'taec' ? '1px solid rgba(255,215,0,.2)' : `1px solid ${accentHex}33`,
-              borderRadius: turn.role === 'taec' ? '14px 4px 14px 14px' : '4px 14px 14px 14px',
-              padding:'9px 13px', fontSize:13, color:'var(--text)',
-            }}>
-              {turn.role === 'taec'
-                ? <p style={{ margin:0, lineHeight:1.65, whiteSpace:'pre-wrap', wordBreak:'break-word' }}>{turn.text}</p>
-                : <RenderText text={turn.text} />
-              }
-            </div>
+            <>
+              {cleanText && (
+                <div style={{
+                  background: turn.role === 'taec'
+                    ? 'linear-gradient(135deg,rgba(255,215,0,.1),rgba(255,215,0,.05))'
+                    : `linear-gradient(135deg,${accentHex}0a,transparent)`,
+                  border: turn.role === 'taec' ? '1px solid rgba(255,215,0,.2)' : `1px solid ${accentHex}33`,
+                  borderRadius: turn.role === 'taec' ? '14px 4px 14px 14px' : '4px 14px 14px 14px',
+                  padding:'9px 13px', fontSize:13, color:'var(--text)',
+                }}>
+                  {turn.role === 'taec'
+                    ? <p style={{ margin:0, lineHeight:1.65, whiteSpace:'pre-wrap', wordBreak:'break-word' }}>{cleanText}</p>
+                    : <RenderText text={cleanText} />
+                  }
+                </div>
+              )}
+              {receipt && turn.agentId && (
+                <AgentReceiptCard receipt={receipt} agentId={turn.agentId} />
+              )}
+            </>
           )
         })()}
 

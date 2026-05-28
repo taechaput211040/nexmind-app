@@ -198,9 +198,11 @@ function formatSize(bytes: number): string {
 function FileExplorer({
   workspaceId,
   workspaceName,
+  workspacePath: _workspacePath,
 }: {
   workspaceId: string
   workspaceName?: string
+  workspacePath?: string
 }) {
   // dirMap: path -> children[] ('' = root)
   const [dirMap, setDirMap]       = useState<Map<string, FileNode[]>>(new Map())

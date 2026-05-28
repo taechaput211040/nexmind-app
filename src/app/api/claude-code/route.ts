@@ -3,6 +3,7 @@ import { spawn } from 'child_process'
 import path from 'path'
 import fs from 'fs'
 import { getAgentModel } from '@/lib/models'
+import { buildSystemPrompt } from '@/lib/agentPrompts'
 
 export const runtime = 'nodejs'
 
@@ -10,21 +11,23 @@ const DEFAULT_WORK_DIR = path.resolve(process.cwd())
 const IS_WIN = process.platform === 'win32'
 
 const AGENT_ROLES: Record<string, string> = {
-  aria: `ARIA — Executive Secretary & Pipeline Orchestrator
-- You are the executive secretary and team lead of NEXMIND Command Center
-- Answer conversational questions, summaries, and status updates DIRECTLY — no code
-- For summary requests: be specific — mention actual file names, component names, and line ranges that were changed
+  aria: `ARIA — Executive Secretary (DIRECT RESPONSE MODE)
+CRITICAL: You are running in DIRECT RESPONSE MODE. The pipeline system has already handled routing externally.
+- DO NOT use the Agent tool — subagents are spawned externally by the pipeline, not by you
+- DO NOT use Bash, Read, Grep, or any file tools — just write your response as text
+- Answer conversational questions, summaries, and status updates DIRECTLY in plain text
+- For summary requests: be specific — mention actual file names, component names, and line ranges
 - If reporting errors: include the exact error message, not a generic "there was an issue"
-- Keep responses concise (4-6 lines max), professional, and in the SAME LANGUAGE as the user (Thai if Thai, English if English)
-- DO NOT write or modify any code files — you coordinate, you never implement
+- Keep responses concise (4-6 lines max), in the SAME LANGUAGE as the user (Thai if Thai, English if English)
+- DO NOT write or modify any code files
 - DO NOT make up results — only report what the other agents actually did`,
 
   pixel: `PIXEL — CSS & Theme Specialist
 
-STEP 1 — READ FIRST (mandatory, no exceptions):
-  Read the FULL content of src/app/globals.css before touching anything.
-  Identify ALL existing CSS variable names and their current values.
-  Never assume a variable name — always verify it exists in the file.
+STEP 1 — USE PRE-LOADED globals.css:
+  The full globals.css is already injected in the PRE-LOADED FILES section above.
+  Identify ALL existing CSS variable names from that content — do NOT call Read on globals.css.
+  Never assume a variable name — always verify it exists in the pre-loaded content.
 
 STEP 2 — PLAN your changes:
   List exactly which variables you will change and to what values.
@@ -42,9 +45,9 @@ STEP 4 — VERIFY:
 
   nova: `NOVA — Frontend Specialist
 
-STEP 1 — ORIENT (mandatory):
-  Read graphify-out/GRAPH_REPORT.md to find which files are relevant.
-  Then READ the target file(s) in FULL before writing a single line.
+STEP 1 — ORIENT (use pre-loaded context):
+  The Codebase Graph (GRAPH_REPORT.md) is already injected above — use it to find which files are relevant. Do NOT re-read it.
+  Then READ only the specific target file(s) in FULL before writing a single line.
   Understand the existing component structure, props, state, and imports.
   Never write code based on assumptions — only on what you actually read.
 
@@ -73,9 +76,9 @@ STEP 6 — REPORT:
 
   byte: `BYTE — Backend Specialist
 
-STEP 1 — ORIENT (mandatory):
-  Read graphify-out/GRAPH_REPORT.md to locate the relevant route files and utilities.
-  Then READ the target route file(s) in FULL before writing anything.
+STEP 1 — ORIENT (use pre-loaded context):
+  The Codebase Graph (GRAPH_REPORT.md) is already injected above — use it to locate relevant route files. Do NOT re-read it.
+  Then READ only the specific target route file(s) in FULL before writing anything.
   Understand the existing request/response contract, error handling, and imports.
   Never assume the structure — read it first.
 
@@ -107,8 +110,8 @@ STEP 6 — REPORT:
 
   rex: `REX — Architect
 
-STEP 1 — ORIENT:
-  Read graphify-out/GRAPH_REPORT.md fully — god nodes, communities, and edge counts reveal impact.
+STEP 1 — ORIENT (use pre-loaded context):
+  The Codebase Graph (GRAPH_REPORT.md) is already injected above — god nodes, communities, and edge counts are there. Do NOT re-read it.
   Identify ALL files that will be affected by this change (direct + transitive dependencies).
   Read each affected file before touching it.
 
@@ -133,9 +136,9 @@ STEP 5 — UPDATE graph:
 
   luna: `LUNA — UX & Animation Specialist
 
-STEP 1 — READ FIRST:
-  Read src/app/globals.css to see existing keyframes and transitions.
-  Read the target component file(s) to understand current structure before adding animations.
+STEP 1 — USE PRE-LOADED CONTEXT:
+  The full globals.css is already injected above — review existing keyframes and transitions from it. Do NOT re-read globals.css.
+  Read only the specific target component file(s) to understand current structure before adding animations.
 
 STEP 2 — PLAN:
   List what animations you will add and where (CSS file vs component inline styles).
@@ -153,8 +156,8 @@ STEP 4 — VERIFY:
 
   scout: `SCOUT — Research & Analysis
 
-STEP 1 — ORIENT with Graphify:
-  Read graphify-out/GRAPH_REPORT.md — use god nodes and communities to find the right files fast.
+STEP 1 — ORIENT (use pre-loaded context):
+  The Codebase Graph (GRAPH_REPORT.md) is already injected above — use god nodes and communities to find relevant files. Do NOT re-read it.
   Check graphify-out/wiki/ if it exists for deeper module-level context.
 
 STEP 2 — INVESTIGATE:
@@ -221,6 +224,21 @@ function writeAriaMemory(cwd: string, task: string, agentList: string[], summary
   } catch { /* non-critical — never crash the pipeline */ }
 }
 
+// Pre-load key files server-side (zero tokens — Node.js fs, no Claude Code)
+// Injected into every agent prompt so agents skip redundant Read tool calls.
+function buildSharedContext(cwd: string): string {
+  const parts: string[] = []
+  try {
+    const css = fs.readFileSync(path.join(cwd, 'src/app/globals.css'), 'utf8')
+    parts.push(`## globals.css (PRE-LOADED — do NOT re-read, use directly):\n\`\`\`css\n${css}\n\`\`\``)
+  } catch { /* not found */ }
+  try {
+    const graph = fs.readFileSync(path.join(cwd, 'graphify-out/GRAPH_REPORT.md'), 'utf8')
+    parts.push(`## Codebase Graph (PRE-LOADED — do NOT re-read):\n${graph}`)
+  } catch { /* not found */ }
+  return parts.join('\n\n')
+}
+
 const PROJECT_CONTEXT = `## Project: NEXMIND Command Center
 Stack: Next.js 16 App Router · TypeScript · Tailwind CSS v4 (NO tailwind.config.ts — CSS-only)
 Theme: Futuristic Arcane — Dark Nebula (#07071a) + Magic Glass + Neon Glows
@@ -257,12 +275,20 @@ ALWAYS use CSS variables from src/app/globals.css — NEVER raw hex, rgb, or hsl
   - No backdrop-filter on glass panels
 
 ## Codebase Knowledge Graph (Graphify)
-A pre-built AST knowledge graph lives at graphify-out/GRAPH_REPORT.md (330 nodes, 461 edges).
-ALWAYS read graphify-out/GRAPH_REPORT.md BEFORE grepping or exploring files.
+A pre-built AST knowledge graph is PRE-LOADED above — do NOT re-read graphify-out/GRAPH_REPORT.md (already in context).
 After editing files run: graphify update .${loadKnowledgeIndex()}`
 
 function ariaPlanPrompt(task: string, context?: string, workspaceCtx?: string): string {
+  // NOTE: deliberately does NOT inject the DM persona here.
+  // ariaPlanPrompt produces a structured JSON pipeline plan, so it needs
+  // precise routing rules — not persona personality. The DM persona's
+  // AGENTS list ("Content (SCOUT/INK/GRACE/VIBE)") conflicts with the
+  // CC-specific scout role ("code research") and biased ARIA into
+  // dispatching SCOUT for tasks that should go to PIXEL/NOVA.
+  // Persona stays in agentPrompt() for actual execution (incl. ARIA summary).
   return `You are ARIA — Executive Secretary & Pipeline Orchestrator for NEXMIND Command Center.
+
+CRITICAL: You are in ROUTING-ONLY mode. Do NOT call any tools. Do NOT use Read, Bash, Grep, or any file tool. Analyze the task text and output the JSON plan IMMEDIATELY.
 
 ${workspaceCtx ? `## ACTIVE WORKSPACE:\n${workspaceCtx}\n` : ''}
 Available agents:
@@ -279,9 +305,11 @@ ${context ? `## Context from previous pipeline:\n${context}\n\n` : ''}Routing ru
 - Task is conversational or asks for explanation (no file changes needed) -> aria ONLY
 - Colors/theme/CSS only -> pixel ONLY
 - UI/components only -> nova ONLY (use pixel first if new colors are needed)
+- "ปรับ", "เเก้", "ออกแบบใหม่", "redesign", "rebuild" + page/component -> pixel + nova (PIXEL handles tokens/theme, NOVA implements)
 - API/backend only -> byte ONLY
 - Multi-file architecture -> rex first, then byte/nova
 - Animations only -> luna ONLY
+- scout ONLY when task explicitly asks to "audit", "investigate", "find", "research" — NOT for redesign/fix work
 
 Respond with ONLY the JSON block — no explanation:
 
@@ -297,22 +325,33 @@ function ariaSummaryPrompt(task: string, agentWork: string): string {
 
 A pipeline just completed for this task: "${task}"
 
-What each agent did:
+Agent receipts (report ONLY what is listed here — never invent or assume):
 ${agentWork}
 
-Write a closing summary in the SAME LANGUAGE as the task (Thai if task is in Thai, English if English).
-Format EXACTLY like this (skip line if no issues):
-OK: [what was accomplished, be specific — mention file names]
-ISSUE: [any errors or issues encountered]
-NEXT: [one specific actionable next step]
+RULES:
+- Base your summary ONLY on the AGENT_RECEIPT_START blocks above
+- If files_changed is empty for an agent → they made no changes (report honestly)
+- If ts_pass: NO → list as ISSUE
+- Match TAEC language (Thai if Thai, English if English)
 
-Keep it under 4 lines total. Be concrete. No fluff.`
+Format EXACTLY (skip ISSUE if none):
+OK: [real files changed — from receipts only]
+ISSUE: [TS errors or agents that changed nothing unexpectedly]
+NEXT: [one concrete next step]`
 }
 
-function agentPrompt(agentId: string, task: string, context: string, workspaceCtx?: string): string {
+function agentPrompt(agentId: string, task: string, context: string, workspaceCtx?: string, sharedCtx?: string): string {
+  // Inject the agent's full DM persona (personality, domain expertise, referral
+  // protocol, global rules) so a NOVA spawned via Claude Code behaves the same
+  // as NOVA in DM chat — same voice, same language switching, same priorities.
+  // The code-execution STEPS (AGENT_ROLES) and EXECUTION RULES below stay
+  // because they govern HOW to edit code, which the DM persona doesn't cover.
+  const persona = buildSystemPrompt(agentId, 'dm')
   const role = AGENT_ROLES[agentId] ?? `${agentId.toUpperCase()} — Specialist`
   return [
-    `## YOUR ROLE: ${role}`,
+    persona,
+    `## CODE-EXECUTION STEPS (specific to this agent):\n${role}`,
+    sharedCtx ? `## PRE-LOADED FILES (globals.css + GRAPH_REPORT.md — use directly, skip re-reading):\n${sharedCtx}` : '',
     workspaceCtx ? `## WORKSPACE CONTEXT:\n${workspaceCtx}` : PROJECT_CONTEXT,
     context ? `## CONTEXT FROM PREVIOUS AGENTS:\n${context}` : '',
     `## YOUR TASK:\n${task}`,
@@ -323,7 +362,13 @@ function agentPrompt(agentId: string, task: string, context: string, workspaceCt
 4. NO ASSUMPTIONS — if you do not know a variable name, file path, or API shape, read the source to find out
 5. TypeScript MUST compile — after every file write, run: npx tsc --noEmit; fix ALL errors before finishing
 6. VERIFY your output — re-read the lines you changed and confirm they are correct before finishing
-7. REPORT clearly — list every file changed, what changed, and confirm TypeScript passes`,
+7. RECEIPT (mandatory last output) — end your response with EXACTLY this block, no exceptions:
+   AGENT_RECEIPT_START
+   files_changed: [list each file path you actually wrote/edited, one per line — empty if none]
+   summary: [one line: what you did, specific file names + what changed]
+   ts_pass: [YES / NO / SKIPPED]
+   AGENT_RECEIPT_END
+   If you changed nothing, still output the block with files_changed empty and summary explaining why.`,
   ].filter(Boolean).join('\n\n')
 }
 
@@ -332,7 +377,7 @@ function getEnv() {
     ? path.join(process.env.APPDATA ?? 'C:\\Users\\Default\\AppData\\Roaming', 'npm')
     : path.join(process.env.HOME ?? '/home/user', '.npm-global', 'bin')
   const env = { ...process.env, PATH: [npmGlobal, process.env.PATH].filter(Boolean).join(IS_WIN ? ';' : ':') }
-  delete env.ANTHROPIC_API_KEY
+  delete (env as Record<string, string | undefined>).ANTHROPIC_API_KEY
   return env
 }
 
@@ -341,15 +386,30 @@ function spawnCC(extraArgs: string[], cwd: string) {
   return spawn('claude', args, { cwd, env: getEnv(), shell: true, stdio: ['pipe', 'pipe', 'pipe'] })
 }
 
-type SendFn = (ev: object) => void
+type SendFn = (ev: Record<string, unknown>) => void
 
 async function planPipeline(task: string, cwd: string, context?: string, workspaceCtx?: string): Promise<{
   agents: string[]
   tasks: Record<string, string>
   summary: string
+  roles?: string[]
 } | null> {
+  // Hard timeout: ARIA planning should be fast (just generates JSON). If CC
+  // hangs (rate limit, auth refresh, network), kill after 90s and fall back.
+  const PLAN_TIMEOUT_MS = 90_000
   return new Promise(resolve => {
     const proc = spawnCC(['--model', getAgentModel('aria')], cwd)
+    let resolved = false
+    const finish = (value: Awaited<ReturnType<typeof planPipeline>>) => {
+      if (resolved) return
+      resolved = true
+      try { proc.kill('SIGTERM') } catch { /* already dead */ }
+      resolve(value)
+    }
+    const timer = setTimeout(() => {
+      console.error('[planPipeline] timed out after', PLAN_TIMEOUT_MS, 'ms — killing CC subprocess')
+      finish(null)
+    }, PLAN_TIMEOUT_MS)
     proc.stdin?.write(ariaPlanPrompt(task, context, workspaceCtx), 'utf8')
     proc.stdin?.end()
     let buf = '', fullText = ''
@@ -368,11 +428,16 @@ async function planPipeline(task: string, cwd: string, context?: string, workspa
       }
     })
     proc.on('close', () => {
+      clearTimeout(timer)
       const m = fullText.match(/NEXMIND_PIPELINE_START\s*([\s\S]*?)\s*NEXMIND_PIPELINE_END/)
-      if (m) { try { return resolve(JSON.parse(m[1])) } catch { /* fall through */ } }
-      resolve(null)
+      if (m) { try { return finish(JSON.parse(m[1])) } catch { /* fall through */ } }
+      finish(null)
     })
-    proc.on('error', () => resolve(null))
+    proc.on('error', (err) => {
+      clearTimeout(timer)
+      console.error('[planPipeline] CC subprocess error:', err)
+      finish(null)
+    })
   })
 }
 
@@ -383,10 +448,11 @@ async function runAgent(
   cwd: string,
   send: SendFn,
   workspaceCtx?: string,
+  sharedCtx?: string,
 ): Promise<{ text: string; sessionId: string | null }> {
   return new Promise((resolve, reject) => {
     const proc = spawnCC(['--model', getAgentModel(agentId)], cwd)
-    proc.stdin?.write(agentPrompt(agentId, task, context, workspaceCtx), 'utf8')
+    proc.stdin?.write(agentPrompt(agentId, task, context, workspaceCtx, sharedCtx), 'utf8')
     proc.stdin?.end()
     let buf = '', outputText = '', sessionId: string | null = null
     proc.stdout.on('data', (chunk: Buffer) => {
@@ -451,9 +517,12 @@ export async function POST(req: NextRequest) {
           send({ type: 'status', text: 'ARIA is planning pipeline...' })
           // Merge doc context into workspace context so all agents see attached files
           const mergedCtx = [workspaceContext, docContext ? `\n\n## ATTACHED DOCUMENT\n${docContext}` : ''].filter(Boolean).join('\n') || undefined
+          const sharedCtx = buildSharedContext(cwd)
           const plan = await planPipeline(message ?? '', cwd, pipelineContext ?? undefined, mergedCtx)
           if (!plan) {
-            send({ type: 'agent_start', agentId: 'aria', role: 'ARIA' })
+            // planPipeline failed — fall back to ARIA alone, but still show pipeline track
+            send({ type: 'pipeline_plan', agents: ['aria'], roles: ['🔮 วิเคราะห์และตอบ'], summary: 'ARIA ตอบโดยตรง' })
+            send({ type: 'agent_start', agentId: 'aria', role: '🔮 วิเคราะห์และตอบ' })
             await runAgent('aria', message ?? '', '', cwd, send, mergedCtx)
             send({ type: 'agent_done', agentId: 'aria' })
             return
@@ -461,7 +530,9 @@ export async function POST(req: NextRequest) {
           const isAriaOnly = plan.agents.length === 1 && plan.agents[0] === 'aria'
           const roles = plan.roles ?? []
           if (isAriaOnly) {
-            send({ type: 'agent_start', agentId: 'aria', role: roles[0] ?? 'ARIA' })
+            // ARIA-only route — still fire pipeline_plan so PipelineTrack renders
+            send({ type: 'pipeline_plan', agents: ['aria'], roles: [roles[0] ?? '🔮 วิเคราะห์และตอบ'], summary: plan.summary })
+            send({ type: 'agent_start', agentId: 'aria', role: roles[0] ?? '🔮 วิเคราะห์และตอบ' })
             await runAgent('aria', message ?? '', '', cwd, send, mergedCtx)
             send({ type: 'agent_done', agentId: 'aria' })
           } else {
@@ -470,12 +541,17 @@ export async function POST(req: NextRequest) {
             const agentWorkLog: string[] = []
             for (const agentId of plan.agents) {
               send({ type: 'agent_start', agentId, role: roles[plan.agents.indexOf(agentId)] ?? agentId })
-              const result = await runAgent(agentId, plan.tasks[agentId] ?? message ?? '', context, cwd, send, mergedCtx)
+              const result = await runAgent(agentId, plan.tasks[agentId] ?? message ?? '', context, cwd, send, mergedCtx, sharedCtx)
               send({ type: 'agent_done', agentId })
               const agentOutput = result.text.trim()
               if (agentOutput) {
                 context += `[${agentId.toUpperCase()} completed]\n${agentOutput}\n\n`
-                agentWorkLog.push(`${agentId.toUpperCase()}: ${agentOutput.slice(0, 300)}`)
+                // Extract AGENT_RECEIPT block if present, else fall back to first 400 chars
+                const receiptMatch = agentOutput.match(/AGENT_RECEIPT_START([\s\S]*?)AGENT_RECEIPT_END/)
+                const receipt = receiptMatch
+                  ? `${agentId.toUpperCase()} AGENT_RECEIPT_START${receiptMatch[1]}AGENT_RECEIPT_END`
+                  : `${agentId.toUpperCase()}: ${agentOutput.slice(0, 400)} [no receipt]`
+                agentWorkLog.push(receipt)
               }
             }
             if (!isAriaOnly && agentWorkLog.length > 0) {
